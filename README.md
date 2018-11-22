@@ -18,3 +18,4 @@ until it does, if you want to add a different key you can just delete the config
 <p>All other information is described in a modal when the application is opened and can be accessed again 
 at any time from the map key button at the top of the list of places</p>
 
+<p>Currently hosted at <a href="https://surflodger.bennett-lloydtech.com/index.php">https://surflodger.bennett-lloydtech.com/index.php</a></p>
