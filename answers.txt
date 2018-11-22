@@ -1,0 +1,65 @@
+Plans for the future
+
+I have spent about 30 hours on this project so far so there is still a lot i want to do before i could call it
+finished as such
+
+Firstly I want to build in better error handling and logging to enable easier debugging and ensure the
+application runs smoothly. Next i would like to make use of sass for the css so that i can easily extend the 
+bootstrap classes and customise the colour scheme. I would like to make use of some front end build tools to
+compile and minify the javaScript and css to speed up load times and manage packages and dependencies.
+
+A bit further down the line i want to add a Slider to control the time so that the circles change opacity
+depending on whether they're open at the time denoted by the slider. This could move along the x axis of a
+graph showing number of open lodges and average star rating of open lodges against time with a drop down
+list to change day.
+
+
+Useful Feature
+
+The ability to bind various elements of the page to one another in javaScript. I used this in the Settings menu
+and in making the circles click-able to highlight their corresponding details in the list. Here's the code i used to
+do this:
+
+public/js/places.js [line:139-145]
+
+marker.addListener('click', function() {
+    //un-highlight any currently selected items in list
+    htmlElements.list.children(".active").removeClass("active");
+    //toggle the active element to the one represented by the circle
+    $("#"+this.customData).addClass("active");
+    //make sure it's in view
+    document.getElementById(this.customData).scrollIntoView();
+});
+
+
+Tracking Down Performance Issues
+
+The first step i take is to make sure i can replicate the issue at hand on the system that has experienced
+the issue and then again but debugging through the software locally. This could either be done via writing a 
+test to automate the simulation of multiple scenarios, to get a good impression of how the issue presents it's
+self and for ease of re-testing, or, if that is likely to be un-necessarily time consuming, then i would do it 
+manually instead. At this point i will have a good idea of what the application should be doing in this scenario,
+so that i can be sure my changes won't stop anything else from working as well as before
+
+Once the rough part of the application that might be causing the problem has been identified, i would
+then step through that part of the code in more detail, timing the various processes and monitoring memory
+and CPU, to hone in on the culprit method. Once the method that is most likely to be causing the performance
+issue has been identified i first try to make sure i fully understand it's role in the application and exactly what 
+it's trying to achieve. With this in mind I then go through it to understand whether there are any operations 
+that can be stripped out or are being un-necessarily repeated. Once i'm sure the current way the method goes 
+about achieving it's goals is as lean as possible, if I've made changes, I'll re-test to see whether this has 
+helped.
+
+If there are still performance issues then i start to look into alternative ways to approach the problem
+such as seeing whether the functionality can be incorporated into other methods within the application
+"whilst they're at it or already there". For example if the same object is being iterated over in multiple places
+during the same overarching process, perhaps the iterators could be combined or relevant data extracted so
+there is less to go through next time. Another example is querying a database, limiting the number of times 
+the application has to connect to the database can be just as important as reducing the amount it has to do
+whilst over there. With web applications, it might be more efficient  overall to process things like graphics once 
+on the server side and send to the client as images however if there is a poor connection it might be faster for 
+the end user to process the imagery client side, especially if it's based on relatively simple data
+
+
+Once I have found a solution i'm happy with I would retest the original problem as well as testing for 
+other things that could be affected by the fix, then if successful, deploy the solution.
